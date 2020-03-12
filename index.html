@@ -25,10 +25,18 @@
           <p v-else>Out of Stock</p>
           <span v-show="onSale">On Sale!</span>
 
+          <ul>
+              <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+
+          <div>
+              <p v-for="variant in variants" :key="variant.variantId">{{ variant.variantColor }}</p>
+          </div>
+
         </div>
       </div>
     </div>
-    
+
     <script src="./node_modules/vue/dist/vue.js"></script>
     <script src="main.js"></script>
   </body>
