@@ -1,0 +1,22 @@
+{
+  "name": "vue-product-app",
+  "version": "1.0.0",
+  "description": "VueJS Store App Test",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm run main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/716green/vue-product-app.git"
+  },
+  "author": "Bob Bass",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/716green/vue-product-app/issues"
+  },
+  "homepage": "https://github.com/716green/vue-product-app#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
+}
