@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <title>Product App</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="nav-bar"></div>
 
     <div id="app">
-      <div class="product">
+        <div class="product">
 
-        <div class="product-image">
-          <img v-bind:src="image" />
+            <div class="product-image">
+                <img v-bind:src="image" />
+            </div>
+
+            <div class="product-info>">
+                <h1>{{ product }}</h1>
+
+                <p v-if="inventory >= 10">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0">Almost Sold Out!</p>
+                <p v-else>Out of Stock</p>
+                <span v-show="onSale">On Sale!</span>
+
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+                <div v-for="variant in variants" :key="variant.variantId">
+                    <p @mouseover="updateProduct(variant.variantImage)">
+                        {{ variant.variantColor }}</p>
+                </div>
+                <div class="cartButtons">
+                    <button v-on:click="addToCart">Add to Cart</button>
+                    <button class="empty" v-on:click="clearCart">Clear Cart</button>
+                </div>
+
+                    <div class="cart">
+                        <p>Cart({{cart}})</p>
+                    </div>
+            </div>
         </div>
-
-        <div class="product-info>">
-          <h1>{{ product }}</h1>
-
-          <p v-if="inventory >= 10">In Stock</p>
-          <p v-else-if="inventory <= 10 && inventory > 0">Almost Sold Out!</p>
-          <p v-else>Out of Stock</p>
-          <span v-show="onSale">On Sale!</span>
-
-          <ul>
-              <li v-for="detail in details">{{ detail }}</li>
-          </ul>
-
-          <div>
-              <p v-for="variant in variants" :key="variant.variantId">{{ variant.variantColor }}</p>
-          </div>
-
-        </div>
-      </div>
     </div>
 
     <script src="./node_modules/vue/dist/vue.js"></script>
     <script src="main.js"></script>
-  </body>
+</body>
+
 </html>

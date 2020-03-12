@@ -87,3 +87,12 @@ body {
     color: #16C0B0;
     text-decoration: underline;
   }
+
+  .cartButtons {
+    display: inside;
+    flex: wrap;
+  }
+
+  .empty {
+    background-color: red;
+  }

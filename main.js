@@ -9,12 +9,27 @@ var app = new Vue({
         variants: [
             {
                 variantId: 2234,
-                variantColor: "Green"
+                variantColor: "Green",
+                variantImage: './images/vmSocks-green.jpg'
              },
              {
                 variantId: 2235,
-                variantColor: "Blue"
+                variantColor: "Blue",
+                variantImage: './images/vmSocks-blue.png'
              }
-        ]
+        ],
+        cart: 0
+    },
+    // Older methods use anonymous function, ES6 syntax will work in modern browsers
+    methods: {
+        addToCart() {
+            this.cart += 1
+        },
+        updateProduct(variantImage) {
+            this.image = variantImage
+        },
+        clearCart() {
+            this.cart = 0
+        }
     }
 })
