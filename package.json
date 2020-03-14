@@ -4,7 +4,7 @@
   "description": "VueJS Store App Test",
   "main": "main.js",
   "scripts": {
-    "start": "npm run main.js"
+    "start": "npm main.js"
   },
   "repository": {
     "type": "git",
