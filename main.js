@@ -1,4 +1,13 @@
 Vue.component('product', {
+    // This is where props from global data are specified to be passed in
+    props: {
+        // Global Data Prop Name
+        premium: {
+            type: Boolean,
+            required: true
+        }
+    },
+
     template: `
     <div class="product">
 
@@ -15,6 +24,7 @@ Vue.component('product', {
                 <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">[{{variantCount}}] Almost Sold
                     Out!</p>
                 <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+                <p>Shipping: {{ shipping }}</P>
 
 
                 <ul>
@@ -104,10 +114,22 @@ Vue.component('product', {
             },
             variantCount() {
                 return this.variants[this.selectedVariant].variantQuantity
+            },
+            shipping() {
+                if (this.premium) {
+                    return "Free"
+                }
+                return '$2.99'
             }
         }
 })
 
+// Calling Vue Instance
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    // Global Variables
+    data: {
+        // Can be passed into component as a prop
+        premium: true
+    }
 })
