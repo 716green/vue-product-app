@@ -107,9 +107,13 @@ body {
     text-decoration: underline;
   }
 
+  .inStock {
+    font-weight: bold;
+  }
+
   .onSale {
     color: green;
-    font-weight: bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
 
   .limitedSupply {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
-    <title>Product Apps</title>
+    <title>Product App</title>
 </head>
 
 <body>
@@ -20,12 +20,13 @@
 
             <div class="product-info">
                 <h1>{{ title }}</h1>
-
-                <!--NEW-->
-                <p v-if="inStock && !runningLow">In Stock</p>
-                <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">Almost Sold Out!</p>
-                <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
                 <span v-show="onSale" :class="{ onSale: onSale }">On Sale!</span>
+
+                <!--Check Quanity and Display Information-->
+                <p v-if="inStock && !runningLow" :class="{ inStock: true }">[{{ variantCount }}] In Stock</p>
+                <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">[{{variantCount}}] Almost Sold Out!</p>
+                <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+                
 
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
@@ -39,7 +40,7 @@
                 </div>
                 <br>
 
-                <!--NEW-->
+                <!--Disable cart and cart button when no in stock-->
                 <div class="cartButtons">
                     <button v-on:click="addToCart" :disabled="(inStock == false)" :class="{ disabledButton: (inStock == false) }">Add to Cart</button>
                     <button class="empty" v-on:click="clearCart">Clear Cart</button>

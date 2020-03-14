@@ -4,19 +4,20 @@ var app = new Vue({
         product: 'Socks',
         brand: 'VueJS',
         selectedVariant: 0,
-        inventory: 9,
         onSale: true,
         details: ["80% cotton", "20% polyester", "Gender-neutral"],
         variants: [
             {
                 variantId: 2234,
                 variantColor: "Green",
-                variantImage: './images/vmSocks-green.jpg'
+                variantImage: './images/vmSocks-green.jpg',
+                variantQuantity: 12
              },
              {
                 variantId: 2235,
                 variantColor: "Blue",
-                variantImage: './images/vmSocks-blue.jpg'
+                variantImage: './images/vmSocks-blue.jpg',
+                variantQuantity: 9
              }
         ],
         cart: 0
@@ -43,20 +44,23 @@ var app = new Vue({
             return this.variants[this.selectedVariant].variantImage
         },
         inStock() {
-            if (this.inventory > 0) {
-                console.log('In Stock')
+            //if (this.inventory > 0) {
+            if (this.variants[this.selectedVariant].variantQuantity > 0) {
                 return this.inStock = true
             } else {
-                console.log('Not In Stock')
                 return this.inStock = false
             }
         },
         runningLow() {
-            if (this.inventory > 0 && this.inventory < 10) {
+            //if (this.inventory > 0 && this.inventory < 10) {
+            if (this.variants[this.selectedVariant].variantQuantity > 0 && this.variants[this.selectedVariant].variantQuantity < 10) {
                 return this.runningLow = true
             } else {
                 return this.runningLow = false
             }
+        },
+        variantCount() {
+            return this.variants[this.selectedVariant].variantQuantity
         }
     }
 })
