@@ -103,10 +103,16 @@ body {
 
   .outOfStock {
     color: red;
+    font-weight: bold;
     text-decoration: underline;
   }
 
   .onSale {
     color: green;
+    font-weight: bold;
+  }
+
+  .limitedSupply {
+    color: orange;
     font-weight: bold;
   }

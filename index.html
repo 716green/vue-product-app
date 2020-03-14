@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
-    <title>Product App</title>
+    <title>Product Apps</title>
 </head>
 
 <body>
@@ -19,27 +19,29 @@
             </div>
 
             <div class="product-info">
-                <h1>{{ product }}</h1>
-                
-                <p v-if="inventory >= 10">In Stock</p>
-                <p v-else-if="inventory <= 10 && inventory > 0">Almost Sold Out!</p>
-                <p v-else :class="{ outOfStock: inStock }">Out of Stock</p>
-                <span v-show="onSale" :class="{ onSale: onSale}">On Sale!</span>
+                <h1>{{ title }}</h1>
+
+                <!--NEW-->
+                <p v-if="inStock && !runningLow">In Stock</p>
+                <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">Almost Sold Out!</p>
+                <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+                <span v-show="onSale" :class="{ onSale: onSale }">On Sale!</span>
 
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
                 </ul>
 
-                <div v-for="variant in variants" 
+                <div v-for="(variant, index) in variants" 
                     :key="variant.variantId"
                     class="color-box"
                     :style="{ backgroundColor: variant.variantColor }"
-                    @mouseover="updateProduct(variant.variantImage)">
+                    @mouseover="updateProduct(index)">
                 </div>
                 <br>
 
+                <!--NEW-->
                 <div class="cartButtons">
-                    <button v-on:click="addToCart" :disabled="inventory < 1" :class="{ disabledButton: inventory < 1 }">Add to Cart</button>
+                    <button v-on:click="addToCart" :disabled="(inStock == false)" :class="{ disabledButton: (inStock == false) }">Add to Cart</button>
                     <button class="empty" v-on:click="clearCart">Clear Cart</button>
                 </div>
 
@@ -47,7 +49,6 @@
                         <p>Cart({{cart}})</p>
                     </div>
             </div>
-        </div>
     </div>
 
     <script src="./node_modules/vue/dist/vue.js"></script>
