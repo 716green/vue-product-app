@@ -1,7 +1,15 @@
+Vue.component('productDetails', {
+    template: `<ul><li v-for="detail in details">{{ detail }}</li></ul>`,
+    data() {
+        return {
+            details: ["80% cotton", "20% polyester", "Gender-neutral"]
+        }}
+})
+
+
 Vue.component('product', {
-    // This is where props from global data are specified to be passed in
+    // Global data props can be passed in
     props: {
-        // Global Data Prop Name
         premium: {
             type: Boolean,
             required: true
@@ -19,17 +27,14 @@ Vue.component('product', {
                 <h1>{{ title }}</h1>
                 <span v-show="onSale" :class="{ onSale: onSale }">On Sale!</span>
 
-                <!--Check Quanity and Display Information-->
+                
                 <p v-if="inStock && !runningLow" :class="{ inStock: true }">[{{ variantCount }}] In Stock</p>
                 <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">[{{variantCount}}] Almost Sold
                     Out!</p>
-                <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
-                <p>Shipping: {{ shipping }}</P>
-
-
-                <ul>
-                    <li v-for="detail in details">{{ detail }}</li>
-                </ul>
+                    <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+                    <p>Shipping: {{ shipping }}</P>
+                    <!--productDetails Component-->
+                    <productDetails></productDetails>
 
                 <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
                     :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(index)">
@@ -50,14 +55,14 @@ Vue.component('product', {
         </div>
         `,
 
-        // Data was converted from Data Object to Data Function to allow for use in multiple places
+        // // Data was converted from Data Object to Data Function to allow for use in multiple places
         data() {
             return {
                 product: 'Socks',
                 brand: 'VueJS',
                 selectedVariant: 0,
                 onSale: true,
-                details: ["80% cotton", "20% polyester", "Gender-neutral"],
+                //details: ["80% cotton", "20% polyester", "Gender-neutral"],
                 variants: [
                     {
                         variantId: 2234,
@@ -76,21 +81,20 @@ Vue.component('product', {
             }
         },
 
-        // Methods (ES6 Syntax)
+        // // Methods (ES6 Syntax)
         methods: {
             addToCart() {
                 this.cart += 1
             },
             updateProduct(index) {
                 this.selectedVariant = index
-                console.log(index)
             },
             clearCart() {
                 this.cart = 0
             }
         },
 
-        // Computed Properties (Updates when dependancies change)
+        // // Computed Properties (Updates when dependancies change)
         computed: {
             title() {
                 return this.brand + ' ' + this.product
@@ -100,17 +104,15 @@ Vue.component('product', {
             },
             inStock() {
                 if (this.variants[this.selectedVariant].variantQuantity > 0) {
-                    return this.inStock = true
-                } else {
-                    return this.inStock = false
+                    return inStock = true
                 }
+                return inStock = false
             },
             runningLow() {
                 if (this.variants[this.selectedVariant].variantQuantity > 0 && this.variants[this.selectedVariant].variantQuantity < 10) {
-                    return this.runningLow = true
-                } else {
-                    return this.runningLow = false
+                    return runningLow = true
                 }
+                return runningLow = false
             },
             variantCount() {
                 return this.variants[this.selectedVariant].variantQuantity
@@ -127,9 +129,8 @@ Vue.component('product', {
 // Calling Vue Instance
 var app = new Vue({
     el: '#app',
-    // Global Variables
+    // Global Variables can be passed into component as a prop
     data: {
-        // Can be passed into component as a prop
         premium: true
     }
 })
