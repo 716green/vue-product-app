@@ -10,15 +10,18 @@
 
 <body>
     <div class="nav-bar"></div>
-
     <div id="app">
-        <!--Product Component from main.js-->
-        <product :premium="premium"></product>
 
-        
+    <!--Cart-->
+    <div class="cart">
+        <p>Cart({{cart.length}})</p>
+    </div>
 
-        <script src="./node_modules/vue/dist/vue.js"></script>
-        <script src="main.js"></script>
+    <!--Product Component from main.js with $emit listeners-->
+    <product :premium="premium" @add-to-cart="updateCart" @clear-cart="zeroCart"></product>
+
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>

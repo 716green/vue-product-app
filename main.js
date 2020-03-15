@@ -48,9 +48,7 @@ Vue.component('product', {
                     <button class="empty" v-on:click="clearCart">Clear Cart</button>
                 </div>
 
-                <div class="cart">
-                    <p>Cart({{cart}})</p>
-                </div>
+                
             </div>
         </div>
         `,
@@ -62,7 +60,6 @@ Vue.component('product', {
                 brand: 'VueJS',
                 selectedVariant: 0,
                 onSale: true,
-                //details: ["80% cotton", "20% polyester", "Gender-neutral"],
                 variants: [
                     {
                         variantId: 2234,
@@ -76,21 +73,20 @@ Vue.component('product', {
                         variantImage: './images/vmSocks-blue.jpg',
                         variantQuantity: 9
                      }
-                ],
-                cart: 0, // Not sure about this comma
+                ]
             }
         },
 
         // // Methods (ES6 Syntax)
         methods: {
             addToCart() {
-                this.cart += 1
+                this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
             },
             updateProduct(index) {
                 this.selectedVariant = index
             },
             clearCart() {
-                this.cart = 0
+                this.$emit('clear-cart', this.variants[this.selectedVariant].variantId)
             }
         },
 
@@ -131,6 +127,15 @@ var app = new Vue({
     el: '#app',
     // Global Variables can be passed into component as a prop
     data: {
-        premium: true
+        premium: true,
+        cart: []
+    },
+    methods: {
+    updateCart(id) {
+        this.cart.push(id)
+    },
+    zeroCart() {
+        this.cart = []
     }
+}
 })
