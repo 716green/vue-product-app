@@ -64,7 +64,7 @@ body {
   }
   
   .review-form {
-    width: 400px;
+    width: 100%;
     padding: 20px;
     margin: 40px;
     border: 1px solid #d8d8d8;
@@ -119,4 +119,23 @@ body {
   .limitedSupply {
     color: orange;
     font-weight: bold;
+  }
+
+  .review-list {
+    list-style: none;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5%;
+    width: 100%;
+  }
+
+  .error-log {
+    font-size: small;
+    color: red;
+    font-weight: lighter;
+    list-style: square;
+  }
+
+  .review-comp {
+    width: 100%;
   }
