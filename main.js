@@ -28,14 +28,12 @@ Vue.component('product', {
             <h1>{{ title }}</h1>
             <span v-show="onSale" :class="{ onSale: onSale }">On Sale!</span>
 
-            <p v-if="inStock && !runningLow" :class="{ inStock: true }">[{{ variantCount }}] In Stock</p>
-            <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">[{{variantCount}}] Limited!</p>
+            <p v-if="inStock && !runningLow" :class="{ inStock: true }">Available<br>[{{ variantCount }}]</p>
+            <p v-else-if="runningLow && inStock" :class="{ limitedSupply: true }">Limited!<br>[{{variantCount}}]</p>
             <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
             <p>Shipping: {{ shipping }}</P>
-    <!--productDetails Component-->
-            <productDetails></productDetails>
 
-            <!--Disable cart and cart button when no in stock-->
+            <!--Cart gets disabled when inventory = 0-->
             <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box"
                 :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(index)">
             </div><br>
@@ -196,6 +194,7 @@ Vue.component('product-review', {
     }
 })
 
+
 Vue.component('product-tabs', {
     props: {
         reviews: {
@@ -211,8 +210,8 @@ Vue.component('product-tabs', {
             :key="index"
             @click="selectedTab = tab">{{ tab }}</span>
 
-        <div v-show="selectedTab === 'Reviews'" >
-        <p v-if="!reviews.length">There are no reviews for this product yet.</p>
+            <div v-show="selectedTab === 'Reviews'" >
+            <p v-if="!reviews.length">There are no reviews for this product yet.</p>
         <ul v-else :class="review-list">
             <li v-for="(review, index) in reviews" :key="index">
                 <p><b>{{ review.name }}</b></p>
@@ -223,14 +222,20 @@ Vue.component('product-tabs', {
     </div>
 
     <div>
-    <product-review v-show="selectedTab === 'Make a Review'"></product-review>
-        </div>
+    <product-review v-show="selectedTab === 'Feedback'"></product-review>
+    </div>
+
+    <div>
+    
+    <!--Product Details Tab Component-->
+    <productDetails v-show="selectedTab === 'Details'"></productDetails>
+    </div>
     </div>
     
     `,
     data() {
         return {
-            tabs: ['Reviews', 'Make a Review'],
+            tabs: ['Reviews', 'Feedback', 'Details'],
             selectedTab: 'Reviews'
         }
     }
